@@ -7,11 +7,11 @@ def pedidos_IOP(store_ids, conn):
     db_connections = {
         "BQ": {
             "conn_str": "mongodb://192.168.1.3:27017/",
-            "db_name": "PedidosBK"
+            "db_name": "PedidosBQ"
         },
         "MA": {
             "conn_str": "mongodb://192.168.1.3:27017/",
-            "db_name": "PedidosMC"
+            "db_name": "PedidosMA"
         }
     }
 
