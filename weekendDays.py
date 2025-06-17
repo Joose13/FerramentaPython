@@ -45,7 +45,7 @@ def get_weekend_days(cadena_var, mercados_entry, tipo_var):
             resp = requests.get(URL_MC, verify=False)
         response = resp.text
 
-        # convertimos el json en objetos python
+        # convertir el json en objetos python
         new_json_object = []
         json_object = json.loads(response)
         for i in range(len(json_object)):
@@ -55,7 +55,7 @@ def get_weekend_days(cadena_var, mercados_entry, tipo_var):
                 new_json_object.append(json_object[i])
 
         with open(path_save, "w") as f:
-            # Guardamos el json en un fichero con la función json.dump
+            # Guarda el json en un fichero con la función json.dump
             json_string = json.dumps(new_json_object, ensure_ascii=False, indent=4)
             f.write(json_string)
 
@@ -65,7 +65,7 @@ def get_weekend_days(cadena_var, mercados_entry, tipo_var):
         messagebox.showerror(title="Error", message=f"Error: {e}")
 
 def main():
-    # Creamos la ventana principal
+    # Crea la ventana principal
     root = tk.Toplevel()
     root.title("Configurar Fines de Semana")
     root.geometry("400x300")
@@ -76,7 +76,7 @@ def main():
     tipo_var = tk.StringVar()
     tipo_var.set("Fin de semana")  # Valor predeterminado
 
-    # Creamos los widgets
+    # Crea los widgets
     cadena_label = tk.Label(root, text="Selecciona la cadena deseada:")
     cadena_optionmenu = tk.OptionMenu(root, cadena_var, "BQ", "MA")
     labelmargen1 = tk.Label(root, text="") 
@@ -88,7 +88,7 @@ def main():
     labelmargen3 = tk.Label(root, text="") 
     run_button = tk.Button(root, text="Guardar archivo", command=lambda: get_weekend_days(cadena_var, mercados_entry, tipo_var))
 
-    # Colocamos los widgets en la ventana
+    # Coloca los widgets en la ventana
     cadena_label.pack()
     cadena_optionmenu.pack()
     labelmargen1.pack()  
@@ -99,7 +99,6 @@ def main():
     tipo_optionmenu.pack()
     labelmargen3.pack()
     run_button.pack()
-
 
 
 if __name__ == '__main__':

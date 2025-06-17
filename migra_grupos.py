@@ -6,25 +6,25 @@ import json
 from dotenv import load_dotenv
 import os
 
-# Cargar variables do entorno
+# Carga variables do entorno
 load_dotenv()
 
-
+#clase para migrar grupos
 class MigraGrupos:
     def __init__(self, mysql_config, api_config):
         self.mysql_config = mysql_config
         self.api_config = api_config
-
+    #conectar a bbdd mysql
     def conectar_mysql(self):
         self.mysql_conn = mysql.connector.connect(**self.mysql_config)
         self.mysql_cursor = self.mysql_conn.cursor(dictionary=True)
-
+    #obtiene datos de bbdd mysql
     def obtener_datos_mysql(self, ids_grupos):
         placeholders = ",".join(["%s"] * len(ids_grupos))
         query = f"SELECT id, Nombre, Pais, Cadena FROM Grupos WHERE id IN ({placeholders})"
         self.mysql_cursor.execute(query, ids_grupos)
         return self.mysql_cursor.fetchall()
-
+    #convierte los datos extraidos de mysql a formato mongodb
     def transformar_datos(self, datos_mysql):
         datos_transformados = []
         for row in datos_mysql:
@@ -75,7 +75,7 @@ class MigraGrupos:
             }
             datos_transformados.append(documento)
         return datos_transformados
-
+    #migra los datos a mongodb
     def migrar_datos(self, ids_grupos):
         self.conectar_mysql()
         datos_mysql = self.obtener_datos_mysql(ids_grupos)
@@ -104,7 +104,7 @@ class MigraGrupos:
         self.mysql_cursor.close()
         self.mysql_conn.close()
 
-
+#gestiona la migracion y las conexiones
 def ejecutar_migracion(ids_entry, conexion_var):
     try:
         ids_grupos = list(map(int, ids_entry.get().split(",")))

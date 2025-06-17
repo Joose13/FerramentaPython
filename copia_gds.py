@@ -33,23 +33,21 @@ def save_all_data(use_BK=True, use_MC=True):
     backup_folder_path = os.path.join(backup_folder, current_date)
     os.makedirs(backup_folder_path, exist_ok=True)
 
-    # URLs para BK y MC
-    BK_base_url = "http://192.168.1.3:3000/api/grupos"
-    MC_base_url = "http://192.168.1.3:4000/api/grupos"
+    # URLs para BQ y MA
+    BQ_base_url = "http://192.168.1.3:3000/api/grupos"
+    MA_base_url = "http://192.168.1.3:4000/api/grupos"
 
     if use_BK:
-        # Guardamos los datos para BK solo para el tenant de BK
         BK_file_name = f"grupos_BQ.json"
         BK_file_path = os.path.join(backup_folder_path, BK_file_name)
-        get_data(BK_file_path, BK_base_url)
+        get_data(BK_file_path, BQ_base_url)
 
     if use_MC:
-        # Guardamos los datos para el resto de tenants en MC (solo versión 10)
             MC_file_name = f"grupos_MA.json"
             MC_file_path = os.path.join(backup_folder_path, MC_file_name)
-            get_data(MC_file_path, MC_base_url)
+            get_data(MC_file_path, MA_base_url)
 
-    # Leemos los datos de BK y MC y los almacenamos en all_data
+    # Leemos los datos de BQ y MA y los almacenamos en all_data
     try:
         if use_BK:
             with open(BK_file_path, "r", encoding="utf-8") as BK_file:

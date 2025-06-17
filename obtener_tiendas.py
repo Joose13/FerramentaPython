@@ -58,8 +58,6 @@ def main():
     values_entry = tk.Entry(input_frame)
     values_entry.pack(side=tk.LEFT, padx=(10, 0))
 
-    # Crea radio buttons para seleccionar BQ o MA
-
     url_frame = tk.Frame(root)
     url_frame.pack(padx=10, pady=(0, 10))
 

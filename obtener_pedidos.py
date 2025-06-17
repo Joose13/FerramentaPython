@@ -39,7 +39,6 @@ def ejecutar_scripts(store_ids_entry, conexion):
         print("Los resultados se han guardado exitosamente.")
 
 
-# Crear la interfaz con tkinter
 def main():
     window = tk.Toplevel()
     window.title("Obtener Pedidos")

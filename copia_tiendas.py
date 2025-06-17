@@ -37,14 +37,12 @@ def save_all_data(use_BQ, use_MA):
     MA_base_url = "http://192.168.1.3:4000/api/tiendas"
 
     if use_BQ:
-        # Guardamos los datos para BQ solo para el tenant de BQ
         BQ_tenant = "BQ"
         BQ_file_name = f"tiendas_{BQ_tenant}.json"
         BQ_file_path = os.path.join(backup_folder_path, BQ_file_name)
         get_data(BQ_file_path, BQ_base_url)
 
     if use_MA:
-        # Guardamos los datos para el resto de tenants en MA
             MA_tenant = "MA"
             MA_file_name = f"tiendas_{MA_tenant}.json"
             MA_file_path = os.path.join(backup_folder_path, MA_file_name)

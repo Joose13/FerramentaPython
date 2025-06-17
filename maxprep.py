@@ -85,9 +85,9 @@ def insert_data(gd_list_entry_var, entry_list, option, utc_entry_var):
                         data["fechaMaxPreparacion"]["1"]["fechasPreparacionDefecto"].insert(index, record)
                     results.append(data)
                 else:
-                    messagebox.showinfo(message=f"No se encontró 'fechasPreparacionDefecto' en el GDS {gd}")
+                    messagebox.showinfo(message=f"No se encontró 'fechasPreparacionDefecto' en el grupo indicado {gd}")
             else:
-                messagebox.showinfo(message=f"Error al obtener el GDS {gd}: {response.status_code}")
+                messagebox.showinfo(message=f"Error al obtener el grupo {gd}: {response.status_code}")
     elif option.get() == 1:
         for gd in gd_list:
             url = f"http://192.168.1.3:3000/api/grupos/{gd}"
@@ -115,7 +115,7 @@ def insert_data(gd_list_entry_var, entry_list, option, utc_entry_var):
 
 def max_prep(num_fechas_entry_var):
     # Crea la ventana principal
-    root = tk.Tk()
+    root = tk.Toplevel()
     root.title("Max Prep Dates de BurguerQueen")
     root.geometry("800x300")
 
@@ -137,7 +137,7 @@ def max_prep(num_fechas_entry_var):
     utc_entry.grid(row=0, column=1, sticky=tk.W)
     utc_frame.pack(padx=10, pady=10, fill=tk.X)
 
-    # Crear radiobutton para introducir config para PS
+    # Crear radiobutton para introducir config para Pedidos Auto
     PS_radiobutton_frame = tk.Frame(root)
     PS_radiobutton_label = tk.Label(PS_radiobutton_frame, text="Introducir configuracion para pedido Auto (campo 2 fechasPreparacionDefecto)", anchor=tk.W, width=60)
     PS_option = tk.IntVar(root)
@@ -211,9 +211,6 @@ def max_prep(num_fechas_entry_var):
     insert_button.pack(pady=10, padx=(0, 20))
 
     canvas.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
-
-    # Inicia el loop de la ventana
-    root.mainloop()
 
 def main():
     root = tk.Toplevel()

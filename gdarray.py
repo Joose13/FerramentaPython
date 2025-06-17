@@ -2,10 +2,10 @@ import json
 import tkinter as tk
 from tkinter import filedialog, messagebox
 
-campo_archivo = None  # Variable global
-archivo_elegido = None  # Variable global
+campo_archivo = None
+archivo_elegido = None 
 
-
+#Funcion para seleccionar archivo a modificar
 def seleccionar_archivo():
     global campo_archivo, archivo_elegido
 
@@ -19,7 +19,7 @@ def seleccionar_archivo():
     else:
         campo_archivo.config(state="disabled")
 
-
+#Funcion para realizar modificaciones sobre el archivo seleccionado
 def procesar_archivo():
     archivo_entrada = archivo_elegido.get()
     archivo_salida = filedialog.asksaveasfilename(

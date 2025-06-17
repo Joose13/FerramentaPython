@@ -8,7 +8,7 @@ from tkinter import messagebox
 
 urllib3.disable_warnings()
 
-all_data = {"BK": {}, "MC": {}}
+all_data = {"BQ": {}, "MA": {}}
 
 def remove_filters(json_obj):
     if isinstance(json_obj, list):
@@ -35,7 +35,7 @@ def get_data(file_path, base_url):
     except IOError as error:
         print(f"Error: {error}")
 
-def save_all_data(use_BK, use_MC):
+def save_all_data(use_BQ, use_MA):
     global all_data
 
     # Creamos la carpeta con la fecha actual
@@ -45,38 +45,38 @@ def save_all_data(use_BK, use_MC):
     os.makedirs(backup_folder_path, exist_ok=True)
 
     # URLs para BK y MC
-    BK_base_url = "http://192.168.1.3:3000/api/grupos/"
-    MC_base_url = "http://192.168.1.3:4000/api/grupos"
+    BQ_base_url = "http://192.168.1.3:3000/api/grupos/"
+    MA_base_url = "http://192.168.1.3:4000/api/grupos"
 
-    if use_BK:
+    if use_BQ:
         # Guardamos los datos para BK solo para el tenant de BK
-        BK_file_name = f"gds_BK.json"
+        BK_file_name = f"gds_BQ.json"
         BK_file_path = os.path.join(backup_folder_path, BK_file_name)
-        get_data(BK_file_path, BK_base_url)
+        get_data(BK_file_path, BQ_base_url)
 
-    if use_MC:
+    if use_MA:
         # Guardamos los datos para el resto de tenants en MC
-        MC_file_name = f"gds_MC.json"
+        MC_file_name = f"gds_MA.json"
         MC_file_path = os.path.join(backup_folder_path, MC_file_name)
-        get_data(MC_file_path, MC_base_url)
+        get_data(MC_file_path, MA_base_url)
 
     # Leemos los datos de BK y MC y los almacenamos en all_data
     try:
-        if use_BK:
-            with open(BK_file_path, "r", encoding="utf-8") as BK_file:
-                BK_data = json.load(BK_file)
-                all_data["BK"] = BK_data
+        if use_BQ:
+            with open(BK_file_path, "r", encoding="utf-8") as BQ_file:
+                BQ_data = json.load(BQ_file)
+                all_data["BQ"] = BQ_data
 
-        if use_MC:
-                with open(MC_file_path, "r", encoding="utf-8") as MC_file:
-                    MC_data = json.load(MC_file)
-                    all_data["MC"] = MC_data
+        if use_MA:
+                with open(MC_file_path, "r", encoding="utf-8") as MA_file:
+                    MA_data = json.load(MA_file)
+                    all_data["MA"] = MA_data
 
     except IOError as error:
         print(f"Error: {error}")
 
-def save_data(use_BK, use_MC):
-    save_all_data(use_BK, use_MC)
+def save_data(use_BQ, use_MA):
+    save_all_data(use_BQ, use_MA)
     messagebox.showinfo("Copia realizada exitosamente.")
 
 # Función principal para la ejecución de la interfaz gráfica
@@ -85,16 +85,16 @@ def main():
     root.title("Eliminar filtros")
     root.geometry('400x200')
 
-    BK_var = tk.BooleanVar()
-    MC_var = tk.BooleanVar()
+    BQ_var = tk.BooleanVar()
+    MA_var = tk.BooleanVar()
 
-    BK_checkbutton = tk.Checkbutton(root, text="BK", variable=BK_var)
+    BK_checkbutton = tk.Checkbutton(root, text="BQ", variable=BQ_var)
     BK_checkbutton.pack()
 
-    MC_checkbutton = tk.Checkbutton(root, text="MC", variable=MC_var)
+    MC_checkbutton = tk.Checkbutton(root, text="MA", variable=MA_var)
     MC_checkbutton.pack()
 
-    button = tk.Button(root, text="Guardar Datos", command=lambda: save_data(BK_var.get(), MC_var.get()))
+    button = tk.Button(root, text="Guardar Datos", command=lambda: save_data(BQ_var.get(), MA_var.get()))
     button.pack()
 
 

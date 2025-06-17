@@ -5,7 +5,7 @@ import mysql.connector
 from datetime import datetime
 from dotenv import load_dotenv
 
-# Cargar variables del archivo .env
+# Carga variables del archivo .env
 load_dotenv()
 
 def connect_to_db(conexion):

@@ -18,13 +18,13 @@ def run_script(values_entry, url):
 
         # Realiza la solicitud GET y almacena la respuesta
         response = requests.get(request_url, verify=False)
-        gds = response.json()
+        grupo = response.json()
 
-        # Verifica si el campo "delayed" ya existe en la sección filtersSchema de cada GDS
-        filtros = gds.get("filtros", [])
+        # Verifica si el campo "pedidosBloqueados" ya existe en la sección filtros de cada Grupo
+        filtros = grupo.get("filtros", [])
         blocked_key_exists = any(filter.get("clave") == "pedidosBloqueados" for filter in filtros)
 
-        # Si el campo no existe, agregarlo a la lista de filtersSchema
+        # Si el campo no existe, agregarlo a la lista de filtros
         if not blocked_key_exists:
             filtros.append({
                 "clave": "pedidosBloqueados",
@@ -45,11 +45,11 @@ def run_script(values_entry, url):
                 ]
             })
 
-        # Actualiza la sección filtersSchema en el GDS
-        gds["filtros"] = filtros
+        # Actualiza la sección filtros en el GDS
+        grupo["filtros"] = filtros
 
-        # Agrega el GDS modificado a la lista de respuestas
-        responses.append(gds)
+        # Agrega el Grupo modificado a la lista de respuestas
+        responses.append(grupo)
 
     # Muestra un cuadro de diálogo para seleccionar la ruta de salida
     ruta = filedialog.asksaveasfilename(defaultextension=".json")
@@ -63,7 +63,7 @@ def run_script(values_entry, url):
 
 
 def main():
-    # Crea la ventana principal
+    # Crea la ventana secundaria
     root = tk.Toplevel()
     root.title("Añadir filtro pedidosBloqueados")
 

@@ -30,7 +30,7 @@ class MigraTiendas:
 
         if response.status_code == 200:
             data = response.json()
-            return data.get('_id')  # Ajusta este campo si el JSON cambia
+            return data.get('_id')
         else:
             raise Exception(f"Error al obtener grupo {id_grupo}: {response.status_code} - {response.text}")
 

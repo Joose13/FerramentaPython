@@ -32,9 +32,9 @@ def pedidos_IOP(store_ids, conn):
             {"$sort": {"total": -1}}
         ]
 
-        # Ejecución de la consulta
+        # Ejecuta la consulta
         result = orders.aggregate(pipeline)
-        # Imprimir los resultados formateados
+        # Imprime los resultados formateados
         print(f"Pedidos IOP store {store_id}:")
         resultado = ''
         resultado = f"Pedidos IOP:"
